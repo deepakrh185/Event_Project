@@ -1,9 +1,15 @@
+import { useRouter } from "next/router";
+
 function events() {
-    return (
-        <div>
-            <h2>Id of events</h2>
-        </div>
-    )
+  const router = useRouter();
+  const id = router.asPath;
+  console.log(router)
+  
+  return (
+    <div>
+      <h2>Id of events {id}</h2>
+    </div>
+  );
 }
 
-export default events
+export default events;
