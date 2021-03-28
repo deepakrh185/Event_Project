@@ -1,5 +1,8 @@
-import Link from "next/link";
 import classes from "./EventItem.module.css";
+import Button from "../Components/ui/button";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
 function EventItems({ id, title, image, date, location, description }) {
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
@@ -7,29 +10,33 @@ function EventItems({ id, title, image, date, location, description }) {
     month: "long",
     year: "numeric",
   });
-
   const formattedLocation = location.replace(", ", "\n");
   const linkForId = `/events/${id}`;
-
   return (
-    <div className={classes.item}>
+    <li className={classes.item}>
       <img src={image} />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{title}</h2>
-        </div>
-        <div className={classes.address}>
-          <address>{formattedLocation}</address>
-        </div>
-        <div>{description}</div>
-        <div className={classes.date}>
-          <time>{humanReadableDate}</time>
+          <div className={classes.date}>
+            <DateRangeIcon />
+            <time>{humanReadableDate}</time>
+          </div>
+          <div className={classes.address}>
+            <LocationOnIcon />
+            <address>{formattedLocation}</address>
+          </div>
         </div>
         <div className={classes.actions}>
-          <Link href={linkForId}>Explore Events</Link>
+          <Button link={linkForId}>
+            <span>Explore Events</span>
+            <span className={classes.icon}>
+              <KeyboardArrowRightIcon />
+            </span>
+          </Button>
         </div>
       </div>
-    </div>
+    </li>
   );
 }
 
