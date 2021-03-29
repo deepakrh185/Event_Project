@@ -1,13 +1,31 @@
 import { useRouter } from "next/router";
+import { getEventById } from "../../dummy-data";
+import EventSummary from "../../Components/event-detail/event-summary";
+import EventLogistics from "../../Components/event-detail/event-logistics";
+import EventContent from "../../Components/event-detail/event-content";
 
 function events() {
   const router = useRouter();
-  const id = router.asPath;
-  console.log(router)
-  
+  const events = router.query.events;
+  console.log(router);
+  const event = getEventById(events);
+
+  if (!event) {
+    return <p>Page not found!!</p>;
+  }
+
   return (
     <div>
-      <h2>Id of events {id}</h2>
+      <EventSummary title={event.title} />
+      <EventLogistics
+        date={event.date}
+        address={event.location}
+        title={event.title}
+        image={event.image}
+      />
+      <EventContent>
+        <p>{event.description}</p>
+      </EventContent>
     </div>
   );
 }
