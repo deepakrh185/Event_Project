@@ -1,5 +1,5 @@
 function Filter() {
-  return <div>slug</div>;
+  return <h1>slug</h1>;
 }
 
 export default Filter;
