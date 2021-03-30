@@ -11,9 +11,9 @@ const DUMMY_EVENTS = [
   },
   {
     id: "e2",
-    title: "Programming for everyone",
+    title: "Don't comment bad code - rewrite it",
     description:
-      "Everyone can learn to code! Yes, everyone! In this live event, we are going to go through all the key basics and get you started with programming as well.",
+      "“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.” – Martin Fowler",
     location: "F/1 National Plaza, AlkapuriVadodara Gujarat",
     date: "2021-01-11",
     image: "images/introvert-event.jpg",
@@ -21,9 +21,9 @@ const DUMMY_EVENTS = [
   },
   {
     id: "e3",
-    title: "Programming for everyone",
+    title: "There’s no test like production.",
     description:
-      "Everyone can learn to code! Yes, everyone! In this live event, we are going to go through all the key basics and get you started with programming as well.",
+      "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday’s code.” – Dan Salomon",
     location: "Trade Linkers 63 Nagdevi Cr Ln, Masjid Bunder (west)",
     date: "2020-10-22",
     image: "images/extrovert-event.jpg",
