@@ -12,6 +12,7 @@ function EventSearch(props) {
     const year = referYear.current.value;
     props.onSubmit(month, year);
   };
+
   return (
     <form className={classes.form} onSubmit={clickHandler}>
       <div className={classes.controls}>
