@@ -11,7 +11,7 @@ function events() {
   const events = router.query.events;
   console.log(router);
   const event = getEventById(events);
-
+  
   if (!event) {
     return (
       <>
