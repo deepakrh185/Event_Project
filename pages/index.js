@@ -11,10 +11,10 @@ export default function Home({ events }) {
 
 export async function getStaticProps() {
   const featuredEvents = await getFeaturedEvents();
-  console.log(featuredEvents);
   return {
     props: {
       events: featuredEvents,
     },
+    revalidate: 50,
   };
 }

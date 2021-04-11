@@ -1,33 +1,12 @@
 import EventList from "../../Components/EventList";
-import { getAllEvents } from "../../dummy-data";
+import { allEvents } from "../../helper/helper-api";
 import EventSearch from "../../Components/EventSearch";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import EventItems from "../../Components/EventItems";
 
-function index() {
-  const event = getAllEvents();
+function index({ events }) {
+  const event = events;
 
   const router = useRouter();
-  const [events, setEvents] = useState();
-
-  // useEffect(() => {
-  //   fetch("https://events-app-f51ec-default-rtdb.firebaseio.com/events.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const eventData = [];
-  //       for (let key in data) {
-  //         eventData.push({
-  //           id: key,
-  //           title: data[key].title,
-  //           location: data[key].location,
-  //           description: data[key].description,
-  //           image: data[key].image,
-  //         });
-  //       }
-  //       setEvents(eventData);
-  //     });
-  // }, []);
 
   const handleChange = (month, year) => {
     const yearAndMonth = `/events/${month}/${year}`;
@@ -40,5 +19,13 @@ function index() {
     </div>
   );
 }
-
+export async function getStaticProps() {
+  const events = await allEvents();
+  return {
+    props: {
+      events: events,
+    },
+    revalidate: 60,
+  };
+}
 export default index;

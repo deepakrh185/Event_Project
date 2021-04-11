@@ -4,7 +4,7 @@ import DateRangeIcon from "@material-ui/icons/DateRange";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 
-function EventItems({ id, title, image, date, location, description }) {
+function EventItems({ id, title, image, date, location }) {
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",

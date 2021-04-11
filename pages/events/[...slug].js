@@ -1,17 +1,54 @@
-import { useRouter } from "next/router";
 import EventList from "../../Components/EventList";
 import ResultsTitle from "../../Components/results-title/ResultTiltle";
 import Button from "../../Components/ui/button";
 import ErrorAlert from "../../Components/ui/error-alert/ErrorAlert";
-import { getFilteredEvents } from "../../dummy-data";
+import { getFilteredEvents } from "../../helper/helper-api";
 
-function Filter() {
-  const router = useRouter();
-  const filterData = router.query.slug;
+function Filter(props) {
+  //const router = useRouter();
+  // const filterData = router.query.slug;
 
-  if (!filterData) {
-    return <p>Loading</p>;
+  // if (!filterData) {
+  //   return <p>Loading</p>;
+  // }
+  // const filterYear = filterData[0];
+  // const filterMonth = filterData[1];
+
+  // const Year = +filterYear;
+  // const Month = +filterMonth;
+
+  if (props.hasError) {
+    return (
+      <>
+        <ErrorAlert>Invalid! Please enter the right dates</ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show all Events</Button>
+        </div>
+      </>
+    );
   }
+  const filteredEvents = props.events;
+  if (!filteredEvents || filteredEvents.length === 0) {
+    return (
+      <div>
+        <ErrorAlert>No such record is found!</ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show all Events</Button>
+        </div>
+      </div>
+    );
+  }
+  const date = new Date(props.date.year, props.date.month - 1);
+  return (
+    <div>
+      <ResultsTitle date={date} />
+      <EventList items={filteredEvents} />
+    </div>
+  );
+}
+
+export async function getServerSideProps(context) {
+  const filterData = context.params.slug;
   const filterYear = filterData[0];
   const filterMonth = filterData[1];
 
@@ -26,37 +63,24 @@ function Filter() {
     Month > 12 ||
     Month < 1
   ) {
-    return (
-      <>
-        <ErrorAlert>Invalid! Please enter the right dates</ErrorAlert>
-        <div className="center">
-          <Button link="/events">Show all Events</Button>
-        </div>
-      </>
-    );
+    return {
+      props: { hasError: true },
+      //notFound: true,
+    };
   }
   console.log(filterData);
-  const filteredEvents = getFilteredEvents({
+  const filteredEvents = await getFilteredEvents({
     year: Year,
     month: Month,
   });
-  if (!filteredEvents || filteredEvents.length === 0) {
-    return (
-      <>
-        <ErrorAlert>No such record is found!</ErrorAlert>
-        <div className="center">
-          <Button link="/events">Show all Events</Button>
-        </div>
-      </>
-    );
-  }
-  const date = new Date(Year, Month - 1);
-  return (
-    <div>
-      <ResultsTitle date={date} />
-      <EventList items={filteredEvents} />
-    </div>
-  );
+  return {
+    props: {
+      events: filteredEvents,
+      date: {
+        year: Year,
+        month: Month,
+      },
+    },
+  };
 }
-
 export default Filter;
