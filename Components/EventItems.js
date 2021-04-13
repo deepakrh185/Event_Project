@@ -3,6 +3,7 @@ import Button from "../Components/ui/button";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import Image from "next/image";
 
 function EventItems({ id, title, image, date, location }) {
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
@@ -14,7 +15,7 @@ function EventItems({ id, title, image, date, location }) {
   const linkForId = `/events/${id}`;
   return (
     <li className={classes.item}>
-      <img src={"/" + image} />
+      <Image src={"/" + image} width={250} height={140} />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{title}</h2>

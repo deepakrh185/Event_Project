@@ -1,3 +1,4 @@
+import Head from "next/head";
 import EventList from "../../Components/EventList";
 import ResultsTitle from "../../Components/results-title/ResultTiltle";
 import Button from "../../Components/ui/button";
@@ -16,10 +17,19 @@ function Filter(props) {
 
   // const Year = +filterYear;
   // const Month = +filterMonth;
-
+  const head = (
+    <Head>
+      <title>Filter EventsPage</title>
+      <meta
+        name="Filter Events"
+        content={`Events in ${props.date.year}, ${props.date.month}`}
+      />
+    </Head>
+  );
   if (props.hasError) {
     return (
       <>
+        {head}
         <ErrorAlert>Invalid! Please enter the right dates</ErrorAlert>
         <div className="center">
           <Button link="/events">Show all Events</Button>
@@ -31,6 +41,7 @@ function Filter(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <div>
+        {head}
         <ErrorAlert>No such record is found!</ErrorAlert>
         <div className="center">
           <Button link="/events">Show all Events</Button>
@@ -41,6 +52,7 @@ function Filter(props) {
   const date = new Date(props.date.year, props.date.month - 1);
   return (
     <div>
+      {head}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </div>
@@ -68,7 +80,6 @@ export async function getServerSideProps(context) {
       //notFound: true,
     };
   }
-  console.log(filterData);
   const filteredEvents = await getFilteredEvents({
     year: Year,
     month: Month,

@@ -1,11 +1,9 @@
-import {
-  getEventById,
-  allEvents,
-  getFeaturedEvents,
-} from "../../helper/helper-api";
+import { getEventById, getFeaturedEvents } from "../../helper/helper-api";
 import EventSummary from "../../Components/event-detail/event-summary";
 import EventLogistics from "../../Components/event-detail/event-logistics";
 import EventContent from "../../Components/event-detail/event-content";
+import Head from "next/head";
+import Comments from "../../Components/input/comments";
 
 function events(props) {
   const event = props.selectedId;
@@ -16,6 +14,10 @@ function events(props) {
 
   return (
     <div>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="Events page" content={event.description} />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
@@ -26,6 +28,7 @@ function events(props) {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </div>
   );
 }

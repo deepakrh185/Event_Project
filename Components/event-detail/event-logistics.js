@@ -1,6 +1,7 @@
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import classes from "./event-logistics.module.css";
+import Image from "next/image";
 
 function EventLogistics(props) {
   const { date, address, image, imageAlt } = props;
@@ -15,7 +16,7 @@ function EventLogistics(props) {
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img src={`/${image}`} alt={imageAlt} />
+        <Image src={`/${image}`} alt={imageAlt} width={300} height={400} />
       </div>
       <ul className={classes.list}>
         <span>
