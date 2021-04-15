@@ -1,20 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import path from "path";
-import fs from "fs";
+import { MongoClient } from "mongodb";
 
-export default (req, res) => {
+export default async (req, res) => {
   if (req.method === "POST") {
     const email = req.body.email;
-    const data = {
-      email: email,
-      id: new Date().toISOString(),
-    };
-    const filePath = path.join(process.cwd(), "data", "backend.json");
-    const fileData = fs.readFileSync(filePath);
-    const dataFile = JSON.parse(fileData);
-    dataFile.push(data);
-    fs.writeFileSync(filePath, JSON.stringify(dataFile));
-    res.status(201).json({ message: "Success", feedback: data });
+
+    const client = await MongoClient.connect(
+      "mongodb+srv://deepak:deepak123@cluster0.sfdwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    );
+    const db = client.db();
+    await db.collection("emails").insertOne({ email: email });
+    client.close();
+
+    res.status(201).json({ message: "Success", feedback: email });
   } else {
     res.status(200).json({ name: "John Doe" });
   }
