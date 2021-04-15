@@ -9,7 +9,13 @@ function Comments(props) {
   const [showComments, setShowComments] = useState(false);
   const [data, setData] = useState();
 
-
+  useEffect(() => {
+    if (showComments) {
+      fetch("/api/comment/" + eventId)
+        .then((response) => response.json())
+        .then((data) => setData(data.comment));
+    }
+  }, [showComments]);
   function toggleCommentsHandler() {
     setShowComments((prevStatus) => !prevStatus);
   }
