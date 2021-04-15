@@ -2,8 +2,8 @@ import classes from "./newsletter-registration.module.css";
 import { useRef } from "react";
 
 function NewsletterRegistration() {
+  
   const email = useRef();
-
   function registrationHandler(event) {
     event.preventDefault();
     const register = email.current.value;

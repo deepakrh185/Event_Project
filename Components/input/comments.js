@@ -9,13 +9,6 @@ function Comments(props) {
   const [showComments, setShowComments] = useState(false);
   const [data, setData] = useState();
 
-  useEffect(() => {
-    if (showComments) {
-      fetch("/api/comment/" + eventId)
-        .then((response) => response.json())
-        .then((data) => setData(data.comment));
-    }
-  }, [showComments]);
 
   function toggleCommentsHandler() {
     setShowComments((prevStatus) => !prevStatus);
@@ -24,7 +17,7 @@ function Comments(props) {
   function addCommentHandler(commentData) {
     // send data to API
     console.log(commentData);
-    fetch("/api/comment/comment", {
+    fetch("/api/comment/" + eventId, {
       method: "POST",
       body: JSON.stringify(commentData),
       headers: {

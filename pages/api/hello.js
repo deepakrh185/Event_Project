@@ -6,8 +6,9 @@ export default async (req, res) => {
     const email = req.body.email;
 
     const client = await MongoClient.connect(
-      "mongodb+srv://deepak:deepak123@cluster0.sfdwk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+      "mongodb+srv://app:app12345@cluster0.md5hk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     );
+
     const db = client.db();
     await db.collection("emails").insertOne({ email: email });
     client.close();
