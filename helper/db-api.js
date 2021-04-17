@@ -11,8 +11,12 @@ export async function connectCredentials(client, collection, documents) {
   const result = await db.collection(collection).insertOne(documents);
   return result;
 }
-export async function getAllDocuments(client, collection, sort) {
+export async function getAllDocuments(client, collection, sort, filter = {}) {
   const db = client.db();
-  const getData = await db.collection(collection).find().sort(sort).toArray();
+  const getData = await db
+    .collection(collection)
+    .find(filter)
+    .sort(sort)
+    .toArray();
   return getData;
 }

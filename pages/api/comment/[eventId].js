@@ -45,7 +45,12 @@ export default async (req, res) => {
     console.log(result);
   } else if (req.method === "GET") {
     try {
-      const getData = await getAllDocuments(client, "comment", { _id: -1 });
+      const getData = await getAllDocuments(
+        client,
+        "comment",
+        { _id: -1 },
+        { eventId: eventId }
+      );
       res.status(200).json({ comment: getData });
     } catch (error) {
       res.status(500).json({ message: "getting comments failed" });
