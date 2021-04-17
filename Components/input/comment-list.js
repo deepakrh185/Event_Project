@@ -7,7 +7,7 @@ function CommentList({ data }) {
         {/* Render list of comments - fetched from API */}
         {data &&
           data.map((list) => (
-            <p key={list._id}>
+            <div key={list._id}>
               <div>
                 <li>
                   <p>{list.text}</p>
@@ -16,7 +16,7 @@ function CommentList({ data }) {
                   </div>
                 </li>
               </div>
-            </p>
+            </div>
           ))}
       </ul>
     </div>

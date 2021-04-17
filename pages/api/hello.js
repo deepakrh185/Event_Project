@@ -1,17 +1,22 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { MongoClient } from "mongodb";
+
+import { connectToDataBase, connectCredentials } from "../../helper/db-api";
 
 export default async (req, res) => {
   if (req.method === "POST") {
     const email = req.body.email;
-
-    const client = await MongoClient.connect(
-      "mongodb+srv://deepak:deepakrh@cluster0.sfdwk.mongodb.net/events?retryWrites=true&w=majority"
-    );
-
-    const db = client.db();
-    await db.collection("emails").insertOne({ email: email });
-    client.close();
+    let client;
+    try {
+      client = await connectToDataBase();
+    } catch (error) {
+      res.status(500).json({ message: "failed to connect with db" });
+    }
+    try {
+      await connectCredentials(client, "email", { email: email });
+      client.close();
+    } catch (error) {
+      res.status(500).json({ message: "failed to sent data" });
+    }
 
     res.status(201).json({ message: "Success", feedback: email });
   } else {
