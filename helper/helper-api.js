@@ -1,3 +1,4 @@
+
 export async function allEvents() {
   const response = await fetch(
     "https://events-app-f51ec-default-rtdb.firebaseio.com/events.json"
@@ -36,4 +37,11 @@ export async function getFilteredEvents(dateFilter) {
   });
 
   return filteredEvents;
+}
+export async function getAllDocument(client, collection, sort, filter = {}) {
+  const documents = await db
+    .collection(collection)
+    .find(filter)
+    .sort(sort)
+    .toArray();
 }
